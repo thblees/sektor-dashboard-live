@@ -1088,16 +1088,16 @@ function App() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: import.meta.env.VITE_MARKET_PHASE || 'slowdown' },
+               { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: import.meta.env.VITE_MARKET_PHASE || 'slowdown' },
                               ].map(region => {
                 // Hardcoded phase selection - Central Admin Control
                 const currentPhase = region.phase
                 
                 const phaseConfig = {
                   recession: { label: 'Rezession', sub: 'Winter', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-                  inflation: { label: 'Inflation', sub: 'Verlangsamung', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+                  inflation: { label: 'Inflation', sub: 'Verlangsamung', color: 'bg-red-50 text-red-700 border-red-200' },
                   expansion: { label: 'Expansion', sub: 'Sommer', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-                  slowdown: { label: 'Verlangsamung', sub: 'Herbst', color: 'bg-orange-50 text-orange-700 border-orange-200' }
+                  slowdown: { label: 'Stagflation', sub: 'Herbst', color: 'bg-red-50 text-red-700 border-red-200' },
                 }
                 
                 return (
