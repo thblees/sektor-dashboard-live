@@ -1082,22 +1082,20 @@ function App() {
             <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
               <div>
                 <h2 className="text-lg font-bold text-slate-900">Globale Wirtschaftszyklen</h2>
-                <p className="text-sm text-slate-500">Aktuelle Phasen-Einschätzung nach Regionen</p>
+                <p className="text-sm text-slate-500">Aktuelle globale Einschätzung</p>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { key: 'usa', name: 'USA', code: 'US', phase: 'recovery' },
-                { key: 'eu', name: 'Europa', code: 'EU', phase: 'slowdown' },
-                { key: 'japan', name: 'Japan', code: 'JP', phase: 'recovery' }
-              ].map(region => {
+                { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: 'inflation' },
+                              ].map(region => {
                 // Hardcoded phase selection - Central Admin Control
                 const currentPhase = region.phase
                 
                 const phaseConfig = {
                   recession: { label: 'Rezession', sub: 'Winter', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-                  recovery: { label: 'Erholung', sub: 'Frühling', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+                  inflation: { label: 'Inflation', sub: 'Wachstumsphase', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
                   expansion: { label: 'Expansion', sub: 'Sommer', color: 'bg-amber-50 text-amber-700 border-amber-200' },
                   slowdown: { label: 'Verlangsamung', sub: 'Herbst', color: 'bg-orange-50 text-orange-700 border-orange-200' }
                 }
