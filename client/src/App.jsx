@@ -1088,7 +1088,7 @@ function App() {
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-                { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: 'slowdown' },
+                { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: import.meta.env.VITE_MARKET_PHASE || 'slowdown' },
                               ].map(region => {
                 // Hardcoded phase selection - Central Admin Control
                 const currentPhase = region.phase
