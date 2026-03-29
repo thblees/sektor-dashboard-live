@@ -7,10 +7,9 @@
 ### 🎮 Steuerung (Keywords für Render.com)
 Ändere bei Render unter **Environment** den Wert von `VITE_MARKET_PHASE` auf eines dieser Wörter:
 
-| Keyword | Phase | Farbe |
-| :--- | :--- | :--- |
-| `slowdown` | Verlangsamung | 🟠 Orange |
-| `recovery` | Erholung | 🟢 Grün |
-| `expansion` | Expansion | 🟡 Gelb |
-| `recession` | Rezession | 🔵 Blau |
-| `inflation` | Inflation | 🟢 Grün |
+Keyword für Render,Anzeige auf dem Dashboard,Farbe
+slowdown,Stagflation (Herbst),🔴 Rot
+recovery,Erholung (Frühling),🟢 Grün
+expansion,Expansion (Sommer),🟡 Gelb
+recession,Rezession (Winter),🔵 Blau
+
