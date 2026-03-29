@@ -80,7 +80,7 @@ const sectorData = {
       ]
     },
     slowdown: {
-      title: 'Verlangsamung',
+      title: 'Stagflation',
       subtitle: 'Herbst',
       icon: '🍂',
       description: 'Wachstum verlangsamt sich, steigende Inflation und Zinsen',
