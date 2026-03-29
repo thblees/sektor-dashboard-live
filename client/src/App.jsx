@@ -1116,7 +1116,18 @@ function App() {
               })}
             </div>
           </div>
-          
+          {/* Community Info Box */}
+<div className="mt-8 p-6 bg-slate-50 rounded-xl border border-slate-200 text-slate-600 text-sm max-w-4xl mx-auto shadow-sm">
+  <h3 className="font-bold text-slate-900 mb-2 flex items-center">
+    <span className="mr-2">💡</span> Hinweis zum neuen Dashboard-Fokus
+  </h3>
+  <p className="mb-3">
+    Wir haben die Ansicht auf einen <strong>globalen Wirtschaftszyklus</strong> konzentriert. In einer eng verzahnten Weltwirtschaft liefern isolierte Regionalbetrachtungen oft nur "Rauschen" – der globale Blick bietet uns ein klareres, verlässlicheres Signal für strategische Entscheidungen.
+  </p>
+  <div className="p-3 bg-amber-50 rounded border border-amber-100 text-amber-800 italic">
+    <strong>Hinweis zur Ladezeit:</strong> Da das Dashboard von manus.ai auf eine neue Infrastruktur umgezogen ist, kann der erste Aufruf ca. 30-60 Sekunden dauern. Bitte lass dich von technischen Meldungen oder einer schlichten Seite beim Laden nicht irritieren – das System "weckt" den Server gerade auf. Danke für deine Geduld!
+  </div>
+</div>
           {/* Main Navigation Tabs */}
           <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 pb-1">
             {[
