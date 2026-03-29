@@ -1050,11 +1050,11 @@ function App() {
               {/* Verlangsamung */}
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100">
                 <div className="min-w-[140px]">
-                  <div className="font-bold text-orange-700">Verlangsamung</div>
+                 <div className="font-bold text-red-700">Stagflation</div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Herbst</div>
                 </div>
                 <div className="min-w-[120px]">
-                  <div className="font-bold text-slate-800">Inflation (I)</div>
+                  <div className="font-bold text-slate-800">Stagflation (S)</div>
                 </div>
                 <div className="text-sm text-slate-600">
                   Wachstum sinkt (<span className="text-red-600 font-bold">↓</span>), Inflation steigt (<span className="text-red-600 font-bold">↑</span>). Die Dynamik lässt nach, aber die Preise bleiben (noch) hoch.
