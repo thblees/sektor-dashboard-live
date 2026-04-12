@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 import { TrendingUp, TrendingDown, Minus, Info, ArrowRight, ExternalLink, TrendingUpIcon } from 'lucide-react'
 import PasswordProtection from './components/PasswordProtection'
-
 const sectorData = {
   sectors: [
     { ticker: 'XLP', name: 'Consumer Staples', nameDE: 'Basiskonsumgüter', etfUrl: 'https://www.ssga.com/us/en/individual/etfs/funds/the-consumer-staples-select-sector-spdr-fund-xlp', yahooUrl: 'https://finance.yahoo.com/quote/XLP' },
@@ -17,10 +16,10 @@ const sectorData = {
     { ticker: 'XLRE', name: 'Real Estate', nameDE: 'Immobilien', etfUrl: 'https://www.ssga.com/us/en/individual/etfs/funds/the-real-estate-select-sector-spdr-fund-xlre', yahooUrl: 'https://finance.yahoo.com/quote/XLRE' },
     { ticker: 'XLC', name: 'Communication Services', nameDE: 'Kommunikationsdienste', etfUrl: 'https://www.ssga.com/us/en/individual/etfs/funds/the-communication-services-select-sector-spdr-fund-xlc', yahooUrl: 'https://finance.yahoo.com/quote/XLC' }
   ],
-  
+
   phases: {
-    recession: {
-      title: 'Rezession',
+    deflation: {
+      title: 'Deflation',
       subtitle: 'Winter',
       icon: '❄️',
       description: 'Wirtschaft schrumpft, Gewinne sinken, Kredite knapp',
@@ -39,8 +38,8 @@ const sectorData = {
         { ticker: 'XLC', return: -8, rank: 11 }
       ]
     },
-    recovery: {
-      title: 'Erholung',
+    goldilocks: {
+      title: 'Goldilocks',
       subtitle: 'Frühling',
       icon: '🌱',
       description: 'Scharfe Erholung, niedrige Zinsen, wachsender Optimismus',
@@ -59,8 +58,8 @@ const sectorData = {
         { ticker: 'XLC', return: 25, rank: 11 }
       ]
     },
-    expansion: {
-      title: 'Expansion',
+    reflation: {
+      title: 'Reflation',
       subtitle: 'Sommer',
       icon: '☀️',
       description: 'Längste Phase, moderates Wachstum, gesunde Profitabilität',
@@ -79,7 +78,7 @@ const sectorData = {
         { ticker: 'XLC', return: 14, rank: 11 }
       ]
     },
-    slowdown: {
+    inflation: {
       title: 'Inflation',
       subtitle: 'Herbst',
       icon: '🍂',
@@ -101,7 +100,6 @@ const sectorData = {
     }
   }
 }
-
 const assetClassData = {
   assets: [
     { ticker: 'ACWI', name: 'Equities', nameDE: 'Aktien (Global)', category: 'Absolute', etfUrl: 'https://www.ishares.com/us/products/239600/ishares-msci-acwi-etf', yahooUrl: 'https://finance.yahoo.com/quote/ACWI' },
@@ -120,7 +118,7 @@ const assetClassData = {
     { ticker: 'EEM', name: 'MSCI Emerging Markets', nameDE: 'MSCI Emerging Markets', category: 'Indices', etfUrl: 'https://www.ishares.com/us/products/239637/ishares-msci-emerging-markets-etf', yahooUrl: 'https://finance.yahoo.com/quote/EEM' },
     { ticker: 'EPP', name: 'MSCI Pacific ex-Japan', nameDE: 'MSCI Pacific ex-Japan', category: 'Indices', etfUrl: 'https://www.ishares.com/us/products/239538/ishares-msci-pacific-exjapan-etf', yahooUrl: 'https://finance.yahoo.com/quote/EPP' }
   ],
-  
+
   performance: {
     spring: {
       ACWI: 'up', LQD: 'up', DN1: 'down', TY1: 'down', TB1: 'down', CRYPTO: 'up',
@@ -144,7 +142,6 @@ const assetClassData = {
     }
   }
 }
-
 const bondsForexData = {
   bonds: [
     { ticker: 'SHY', name: '1-3Y USTs', nameDE: 'Kurzlaufende US-Staatsanleihen', category: 'Bonds', etfUrl: 'https://www.ishares.com/us/products/239452/ishares-13-year-treasury-bond-etf', yahooUrl: 'https://finance.yahoo.com/quote/SHY' },
@@ -167,7 +164,7 @@ const bondsForexData = {
     { ticker: 'MXN', name: 'MXN', nameDE: 'Mexikanischer Peso', category: 'Forex', yahooUrl: 'https://finance.yahoo.com/quote/MXN=X' },
     { ticker: 'BRL', name: 'BRL', nameDE: 'Brasilianischer Real', category: 'Forex', yahooUrl: 'https://finance.yahoo.com/quote/BRL=X' }
   ],
-  
+
   performance: {
     spring: {
       SHY: 'neutral', IEF: 'down', TLT: 'down', HYG: 'up', LQD: 'up', EMB: 'up', TIP: 'down',
@@ -187,7 +184,6 @@ const bondsForexData = {
     }
   }
 }
-
 const commoditiesData = {
   commodities: [
     { ticker: 'HG1', name: 'Copper', nameDE: 'Kupfer ("Doctor Copper")', category: 'Zyklisch', yahooUrl: 'https://finance.yahoo.com/quote/HG=F' },
@@ -198,7 +194,7 @@ const commoditiesData = {
     { ticker: 'XAU', name: 'Gold', nameDE: 'Gold', category: 'Defensiv', yahooUrl: 'https://finance.yahoo.com/quote/GC=F' },
     { ticker: 'XAG', name: 'Silver', nameDE: 'Silber', category: 'Defensiv', yahooUrl: 'https://finance.yahoo.com/quote/SI=F' }
   ],
-  
+
   performance: {
     spring: {
       HG1: 'up', CL1: 'up', LB1: 'up', CT1: 'up', NG1: 'down',
@@ -218,7 +214,6 @@ const commoditiesData = {
     }
   }
 }
-
 const factorsData = {
   factors: [
     { ticker: 'SPLV', name: 'Min Vol', nameDE: 'Minimale Volatilität', category: 'Style Factors', etfUrl: 'https://www.ssga.com/us/en/individual/etfs/funds/invesco-sp-500-low-volatility-etf-splv', yahooUrl: 'https://finance.yahoo.com/quote/SPLV' },
@@ -233,7 +228,7 @@ const factorsData = {
     { ticker: 'XSOUSD', name: 'Solana', nameDE: 'Solana', category: 'Crypto', yahooUrl: 'https://finance.yahoo.com/quote/SOL-USD' },
     { ticker: 'ALTCOINS', name: 'Altcoins', nameDE: 'Altcoins', category: 'Crypto' }
   ],
-  
+
   performance: {
     spring: {
       SPLV: 'down', SPHB: 'up', IWF: 'up', IWD: 'down', IWM: 'up', URTH: 'down', QUAL: 'down',
@@ -253,7 +248,6 @@ const factorsData = {
     }
   }
 }
-
 function getPerformanceColor(returnValue) {
   if (returnValue >= 20) return 'bg-green-600 text-white'
   if (returnValue >= 10) return 'bg-green-500 text-white'
@@ -263,45 +257,40 @@ function getPerformanceColor(returnValue) {
   if (returnValue >= -10) return 'bg-orange-500 text-white'
   return 'bg-red-600 text-white'
 }
-
 function getPerformanceIcon(returnValue) {
   if (returnValue > 0) return <TrendingUp className="w-4 h-4" />
   if (returnValue < 0) return <TrendingDown className="w-4 h-4" />
   return <Minus className="w-4 h-4" />
 }
-
 function getAssetPerformanceColor(performance) {
   if (performance === 'up') return 'bg-green-500 text-white'
   if (performance === 'down') return 'bg-red-500 text-white'
   return 'bg-yellow-500 text-gray-900'
 }
-
 function getAssetPerformanceIcon(performance) {
   if (performance === 'up') return <TrendingUp className="w-5 h-5" />
   if (performance === 'down') return <TrendingDown className="w-5 h-5" />
   return <ArrowRight className="w-5 h-5" />
 }
-
-
 function CommoditiesTable() {
   const phases = ['spring', 'summer', 'fall', 'winter']
   const phaseLabels = {
-    spring: { title: 'Erholung', sub: 'Frühling' },
-    summer: { title: 'Expansion', sub: 'Sommer' },
-    fall: { title: 'Verlangsamung', sub: 'Herbst' },
-    winter: { title: 'Rezession', sub: 'Winter' }
+    spring: { title: 'Goldilocks', sub: 'Frühling' },
+    summer: { title: 'Reflation', sub: 'Sommer' },
+    fall: { title: 'Inflation', sub: 'Herbst' },
+    winter: { title: 'Deflation', sub: 'Winter' }
   }
-  
+
   const cyclicalCommodities = commoditiesData.commodities.filter(c => c.category === 'Zyklisch')
   const defensiveCommodities = commoditiesData.commodities.filter(c => c.category === 'Defensiv')
-  
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Commodities</h2>
         <p className="text-sm text-slate-500">Performance ausgewählter Rohstoffe (vs. GSCI)</p>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -331,14 +320,14 @@ function CommoditiesTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {commodity.etfUrl && (
-                        <a href={commodity.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={commodity.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {commodity.yahooUrl && (
-                        <a href={commodity.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={commodity.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -374,14 +363,14 @@ function CommoditiesTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {commodity.etfUrl && (
-                        <a href={commodity.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={commodity.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {commodity.yahooUrl && (
-                        <a href={commodity.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={commodity.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -405,33 +394,32 @@ function CommoditiesTable() {
           </tbody>
         </table>
       </div>
-      
+
       <div className="bg-slate-50 border-t border-slate-200 p-4">
         <p className="text-xs text-slate-500">
-          <strong>Hinweis:</strong> Diese Tabelle zeigt nur Rohstoffe mit klarem zyklischen Muster. 
+          <strong>Hinweis:</strong> Diese Tabelle zeigt nur Rohstoffe mit klarem zyklischen Muster.
           Agrarrohstoffe wurden ausgeschlossen, da saisonale Muster (Ernte-Zyklen) oft die Business-Cycle-Effekte überlagern.
         </p>
       </div>
     </div>
   )
 }
-
 function BondsForexTable() {
   const phases = ['spring', 'summer', 'fall', 'winter']
   const phaseLabels = {
-    spring: { title: 'Erholung', sub: 'Frühling' },
-    summer: { title: 'Expansion', sub: 'Sommer' },
-    fall: { title: 'Verlangsamung', sub: 'Herbst' },
-    winter: { title: 'Rezession', sub: 'Winter' }
+    spring: { title: 'Goldilocks', sub: 'Frühling' },
+    summer: { title: 'Reflation', sub: 'Sommer' },
+    fall: { title: 'Inflation', sub: 'Herbst' },
+    winter: { title: 'Deflation', sub: 'Winter' }
   }
-  
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Bonds & Forex</h2>
         <p className="text-sm text-slate-500">Performance verschiedener Anleihen-Typen und Währungen</p>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -461,14 +449,14 @@ function BondsForexTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {bond.etfUrl && (
-                        <a href={bond.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={bond.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {bond.yahooUrl && (
-                        <a href={bond.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={bond.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -503,7 +491,7 @@ function BondsForexTable() {
                       <div className="text-xs text-slate-500">{currency.nameDE}</div>
                     </div>
                     {currency.yahooUrl && (
-                      <a href={currency.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                      <a href={currency.yahooUrl} target="_blank" rel="noopener noreferrer"
                          className="text-slate-400 hover:text-emerald-600 p-1"
                          title="Chart">
                         <TrendingUpIcon className="w-3 h-3" />
@@ -529,26 +517,25 @@ function BondsForexTable() {
     </div>
   )
 }
-
 function AssetClassTable() {
   const phases = ['spring', 'summer', 'fall', 'winter']
   const phaseLabels = {
-    spring: { title: 'Erholung', sub: 'Frühling' },
-    summer: { title: 'Expansion', sub: 'Sommer' },
-    fall: { title: 'Verlangsamung', sub: 'Herbst' },
-    winter: { title: 'Rezession', sub: 'Winter' }
+    spring: { title: 'Goldilocks', sub: 'Frühling' },
+    summer: { title: 'Reflation', sub: 'Sommer' },
+    fall: { title: 'Inflation', sub: 'Herbst' },
+    winter: { title: 'Deflation', sub: 'Winter' }
   }
-  
+
   const absoluteAssets = assetClassData.assets.filter(a => a.category === 'Absolute')
   const indexAssets = assetClassData.assets.filter(a => a.category === 'Indices')
-  
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Asset-Klassen-Rotation</h2>
         <p className="text-sm text-slate-500">Performance-Erwartung verschiedener Asset-Klassen und Indizes</p>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -578,14 +565,14 @@ function AssetClassTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {asset.etfUrl && (
-                        <a href={asset.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={asset.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {asset.yahooUrl && (
-                        <a href={asset.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={asset.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -621,14 +608,14 @@ function AssetClassTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {asset.etfUrl && (
-                        <a href={asset.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={asset.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {asset.yahooUrl && (
-                        <a href={asset.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={asset.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -655,25 +642,23 @@ function AssetClassTable() {
     </div>
   )
 }
-
 function PerformanceCard({ phase, phaseKey }) {
   const sortedPerformance = [...phase.performance].sort((a, b) => b.return - a.return)
-  
+
   // Professional color mapping for headers
   const headerColors = {
-    recession: 'border-blue-500 bg-blue-50',
-    recovery: 'border-emerald-500 bg-emerald-50',
-    expansion: 'border-amber-500 bg-amber-50',
-    slowdown: 'border-orange-500 bg-orange-50'
+    deflation: 'border-blue-500 bg-blue-50',
+    goldilocks: 'border-emerald-500 bg-emerald-50',
+    reflation: 'border-amber-500 bg-amber-50',
+    inflation: 'border-orange-500 bg-orange-50'
+  }
+  const textColors = {
+    deflation: 'text-blue-700',
+    goldilocks: 'text-emerald-700',
+    reflation: 'text-amber-700',
+    inflation: 'text-orange-700'
   }
 
-  const textColors = {
-    recession: 'text-blue-700',
-    recovery: 'text-emerald-700',
-    expansion: 'text-amber-700',
-    slowdown: 'text-orange-700'
-  }
-  
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden h-full flex flex-col">
       <div className={`p-6 border-l-4 ${headerColors[phaseKey] || 'border-slate-500 bg-slate-50'}`}>
@@ -686,26 +671,26 @@ function PerformanceCard({ phase, phaseKey }) {
         </div>
         <p className="text-sm text-slate-600 mt-2 leading-relaxed">{phase.description}</p>
       </div>
-      
+
       <div className="bg-slate-50 border-y border-slate-100 px-4 py-2">
         <p className="text-[10px] text-slate-500 font-medium uppercase tracking-wide">
           Sektor-Performance (Historisch)
         </p>
       </div>
-      
+
       <div className="p-4 flex-1">
         <div className="space-y-1">
           {sortedPerformance.map((item, index) => {
             const sector = sectorData.sectors.find(s => s.ticker === item.ticker)
             return (
-              <div 
+              <div
                 key={item.ticker}
                 className="flex items-center gap-3 p-2 rounded hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100"
               >
                 <div className="w-6 h-6 flex items-center justify-center bg-slate-100 rounded text-xs font-bold text-slate-500">
                   {index + 1}
                 </div>
-                
+
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <div className="truncate">
@@ -714,25 +699,25 @@ function PerformanceCard({ phase, phaseKey }) {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                     {sector.etfUrl && (
-                      <a href={sector.etfUrl} target="_blank" rel="noopener noreferrer" 
+                      <a href={sector.etfUrl} target="_blank" rel="noopener noreferrer"
                          className="text-slate-400 hover:text-blue-600 p-1"
                          title="ETF Holdings">
                         <Info className="w-3 h-3" />
                       </a>
                     )}
                     {sector.yahooUrl && (
-                      <a href={sector.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                      <a href={sector.yahooUrl} target="_blank" rel="noopener noreferrer"
                          className="text-slate-400 hover:text-emerald-600 p-1"
                          title="Chart">
                         <TrendingUpIcon className="w-3 h-3" />
                       </a>
                     )}
                   </div>
-                  
+
                   <div className={`w-8 h-8 rounded flex items-center justify-center ${getPerformanceColor(item.return)}`}>
                     {getPerformanceIcon(item.return)}
                   </div>
@@ -745,23 +730,22 @@ function PerformanceCard({ phase, phaseKey }) {
     </div>
   )
 }
-
 function ComparisonTable() {
-  const phases = ['recovery', 'expansion', 'slowdown', 'recession']
+  const phases = ['goldilocks', 'reflation', 'inflation', 'deflation']
   const phaseLabels = {
-    recovery: { title: 'Erholung', sub: 'Frühling' },
-    expansion: { title: 'Expansion', sub: 'Sommer' },
-    slowdown: { title: 'Verlangsamung', sub: 'Herbst' },
-    recession: { title: 'Rezession', sub: 'Winter' }
+    goldilocks: { title: 'Goldilocks', sub: 'Frühling' },
+    reflation: { title: 'Reflation', sub: 'Sommer' },
+    inflation: { title: 'Inflation', sub: 'Herbst' },
+    deflation: { title: 'Deflation', sub: 'Winter' }
   }
-  
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Sektor-Vergleich</h2>
         <p className="text-sm text-slate-500">Performance-Matrix über alle Wirtschaftsphasen</p>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -786,14 +770,14 @@ function ComparisonTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {sector.etfUrl && (
-                        <a href={sector.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={sector.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {sector.yahooUrl && (
-                        <a href={sector.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={sector.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -820,27 +804,25 @@ function ComparisonTable() {
     </div>
   )
 }
-
-
 function FactorsTable() {
   const phases = ['spring', 'summer', 'fall', 'winter']
   const phaseLabels = {
-    spring: { title: 'Erholung', sub: 'Frühling' },
-    summer: { title: 'Expansion', sub: 'Sommer' },
-    fall: { title: 'Verlangsamung', sub: 'Herbst' },
-    winter: { title: 'Rezession', sub: 'Winter' }
+    spring: { title: 'Goldilocks', sub: 'Frühling' },
+    summer: { title: 'Reflation', sub: 'Sommer' },
+    fall: { title: 'Inflation', sub: 'Herbst' },
+    winter: { title: 'Deflation', sub: 'Winter' }
   }
-  
+
   const styleFactors = factorsData.factors.filter(f => f.category === 'Style Factors')
   const cryptoAssets = factorsData.factors.filter(f => f.category === 'Crypto')
-  
+
   return (
     <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-lg font-bold text-slate-900">Faktoren & Krypto</h2>
         <p className="text-sm text-slate-500">Performance von Faktoren und Kryptowährungen</p>
       </div>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -870,14 +852,14 @@ function FactorsTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {factor.etfUrl && (
-                        <a href={factor.etfUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={factor.etfUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-blue-600 p-1"
                            title="ETF Holdings">
                           <Info className="w-3 h-3" />
                         </a>
                       )}
                       {factor.yahooUrl && (
-                        <a href={factor.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={factor.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -913,7 +895,7 @@ function FactorsTable() {
                     </div>
                     <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       {crypto.yahooUrl && (
-                        <a href={crypto.yahooUrl} target="_blank" rel="noopener noreferrer" 
+                        <a href={crypto.yahooUrl} target="_blank" rel="noopener noreferrer"
                            className="text-slate-400 hover:text-emerald-600 p-1"
                            title="Chart">
                           <TrendingUpIcon className="w-3 h-3" />
@@ -937,11 +919,11 @@ function FactorsTable() {
           </tbody>
         </table>
       </div>
-      
+
       <div className="bg-slate-50 border-t border-slate-200 p-4">
         <p className="text-xs text-slate-500 mb-2">
-          <strong>⚠️ Hinweis zu Kryptowährungen:</strong> Crypto-Assets haben noch keine vollständige Rezession erlebt. 
-          Die Darstellung basiert auf begrenzten Daten. Bitcoin-Halving-Zyklen (4 Jahre) und Crypto-interne Rotation 
+          <strong>⚠️ Hinweis zu Kryptowährungen:</strong> Crypto-Assets haben noch keine vollständige Rezession erlebt.
+          Die Darstellung basiert auf begrenzten Daten. Bitcoin-Halving-Zyklen (4 Jahre) und Crypto-interne Rotation
           können Business-Cycle-Effekte überlagern. Crypto verhält sich primär als Risk-On-Asset ähnlich wie Tech-Aktien.
         </p>
         <p className="text-xs text-slate-500">
@@ -951,27 +933,25 @@ function FactorsTable() {
     </div>
   )
 }
-
 function App() {
   const [view, setView] = useState('sectors-cards')
-  
+
   // Load saved region phases from localStorage or use defaults
   const [regionPhases, setRegionPhases] = useState(() => {
     const saved = localStorage.getItem('regionPhases')
     return saved ? JSON.parse(saved) : {
-      usa: 'expansion',
-      eu: 'slowdown',
-      asia: 'expansion',
-      japan: 'slowdown'
+      usa: 'reflation',
+      eu: 'inflation',
+      asia: 'reflation',
+      japan: 'inflation'
     }
   })
-  
+
   const updateRegionPhase = (region, phase) => {
     const newPhases = { ...regionPhases, [region]: phase }
     setRegionPhases(newPhases)
     localStorage.setItem('regionPhases', JSON.stringify(newPhases))
   }
-
   return (
     <PasswordProtection>
       <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
@@ -989,9 +969,8 @@ function App() {
             </div>
           </div>
         </nav>
-
         <div className="container mx-auto px-4 py-8 max-w-7xl">
-          
+
           {/* Disclaimer Banner */}
           <div className="mb-8 bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
             <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
@@ -999,7 +978,6 @@ function App() {
               <strong>Haftungsausschluss:</strong> Alle Angaben dienen ausschließlich Lehrzwecken und stellen keine Anlageberatung dar. Investitionen erfolgen auf eigenes Risiko.
             </p>
           </div>
-
           {/* Phase Definition Legend - Growth/Inflation Matrix */}
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
             <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
@@ -1008,21 +986,20 @@ function App() {
                 <p className="text-sm text-slate-500">Zusammenhang zwischen Wachstum und Inflation in den vier Zyklus-Phasen</p>
               </div>
             </div>
-
             {/* Explanatory Graphic */}
             <div className="mb-8 bg-slate-50 rounded-lg p-4 border border-slate-100 flex justify-center">
-              <img 
-                src="https://files.manuscdn.com/user_upload_by_module/session_file/93727259/qYFZMjvyERSxyVNg.png" 
-                alt="Die vier Jahreszeiten der Geldanlage" 
+              <img
+                src="https://files.manuscdn.com/user_upload_by_module/session_file/93727259/qYFZMjvyERSxyVNg.png"
+                alt="Die vier Jahreszeiten der Geldanlage"
                 className="max-w-full h-auto rounded shadow-sm max-h-[500px] object-contain"
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Erholung */}
+              {/* Goldilocks */}
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100">
                 <div className="min-w-[140px]">
-                  <div className="font-bold text-emerald-700">Erholung</div>
+                  <div className="font-bold text-emerald-700">Goldilocks</div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Frühling</div>
                 </div>
                 <div className="min-w-[120px]">
@@ -1032,11 +1009,10 @@ function App() {
                   Wachstum steigt (<span className="text-emerald-600 font-bold">↑</span>), Inflation sinkt (<span className="text-emerald-600 font-bold">↓</span>). Die Wirtschaft erwacht, ohne zu überhitzen.
                 </div>
               </div>
-
-              {/* Expansion */}
+              {/* Reflation */}
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100">
                 <div className="min-w-[140px]">
-                  <div className="font-bold text-amber-700">Expansion</div>
+                  <div className="font-bold text-amber-700">Reflation</div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Sommer</div>
                 </div>
                 <div className="min-w-[120px]">
@@ -1046,8 +1022,7 @@ function App() {
                   Wachstum steigt (<span className="text-emerald-600 font-bold">↑</span>), Inflation steigt (<span className="text-red-600 font-bold">↑</span>). Die Wirtschaft läuft auf Hochtouren, Preise ziehen an.
                 </div>
               </div>
-
-              {/* Verlangsamung */}
+              {/* Inflation */}
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100">
                 <div className="min-w-[140px]">
                  <div className="font-bold text-red-700">Inflation</div>
@@ -1060,11 +1035,10 @@ function App() {
                   Wachstum sinkt (<span className="text-red-600 font-bold">↓</span>), Inflation steigt (<span className="text-red-600 font-bold">↑</span>). Die Dynamik lässt nach, aber die Preise bleiben (noch) hoch.
                 </div>
               </div>
-
-              {/* Rezession */}
+              {/* Deflation */}
               <div className="flex flex-col sm:flex-row gap-4 p-4 rounded-lg bg-slate-50 border border-slate-100">
                 <div className="min-w-[140px]">
-                  <div className="font-bold text-blue-700">Rezession</div>
+                  <div className="font-bold text-blue-700">Deflation</div>
                   <div className="text-xs text-slate-500 uppercase tracking-wider font-medium">Winter</div>
                 </div>
                 <div className="min-w-[120px]">
@@ -1076,7 +1050,6 @@ function App() {
               </div>
             </div>
           </div>
-
           {/* Global Cycle Traffic Light - Professional Redesign */}
           <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-8">
             <div className="flex items-center justify-between mb-6 border-b border-slate-100 pb-4">
@@ -1085,28 +1058,28 @@ function App() {
                 <p className="text-sm text-slate-500">Aktuelle globale Einschätzung</p>
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
-               { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: import.meta.env.VITE_MARKET_PHASE || 'slowdown' },
+               { key: 'global', name: 'Wirtschaftszyklus global', code: 'GL', phase: import.meta.env.VITE_MARKET_PHASE || 'reflation' },
                               ].map(region => {
                 // Hardcoded phase selection - Central Admin Control
                 const currentPhase = region.phase
-                
+
                 const phaseConfig = {
-                  recession: { label: 'Rezession', sub: 'Winter', color: 'bg-blue-50 text-blue-700 border-blue-200' },
-                  inflation: { label: 'Inflation', sub: 'Verlangsamung', color: 'bg-red-50 text-red-700 border-red-200' },
-                  expansion: { label: 'Expansion', sub: 'Sommer', color: 'bg-amber-50 text-amber-700 border-amber-200' },
-                  slowdown: { label: 'Stagflation', sub: 'Herbst', color: 'bg-red-50 text-red-700 border-red-200' },
+                  deflation: { label: 'Deflation', sub: 'Winter', color: 'bg-blue-50 text-blue-700 border-blue-200' },
+                  goldilocks: { label: 'Goldilocks', sub: 'Frühling', color: 'bg-emerald-50 text-emerald-700 border-emerald-200' },
+                  reflation: { label: 'Reflation', sub: 'Sommer', color: 'bg-amber-50 text-amber-700 border-amber-200' },
+                  inflation: { label: 'Inflation', sub: 'Herbst', color: 'bg-red-50 text-red-700 border-red-200' },
                 }
-                
+
                 return (
                   <div key={region.key} className="bg-white rounded-lg p-4 border border-slate-200 shadow-sm">
                     <div className="flex items-center justify-between mb-3">
                       <span className="font-semibold text-slate-700">{region.name}</span>
                       <span className="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded border border-slate-100">{region.code}</span>
                     </div>
-                    
+
                     <div className={`rounded-md p-3 text-center border ${phaseConfig[currentPhase].color}`}>
                       <div className="font-bold text-lg">{phaseConfig[currentPhase].label}</div>
                       <div className="text-xs opacity-80 uppercase tracking-wider">{phaseConfig[currentPhase].sub}</div>
@@ -1142,8 +1115,8 @@ function App() {
                 key={tab.id}
                 onClick={() => setView(tab.id)}
                 className={`px-4 py-2.5 rounded-t-lg font-medium text-sm transition-all relative top-[1px] ${
-                  view === tab.id 
-                    ? 'bg-white text-slate-900 border-x border-t border-slate-200 shadow-sm z-10' 
+                  view === tab.id
+                    ? 'bg-white text-slate-900 border-x border-t border-slate-200 shadow-sm z-10'
                     : 'text-slate-500 hover:text-slate-700 hover:bg-slate-50'
                 }`}
               >
@@ -1151,34 +1124,32 @@ function App() {
               </button>
             ))}
           </div>
-          
+
           <div className="mb-6">
             <p className="text-sm text-slate-500 flex items-center gap-2">
               <Info className="w-4 h-4" />
               <span>Datenbasis: Historische Durchschnittswerte (7 Rezessionen, 7 Erholungsphasen, 12 Expansionen).</span>
             </p>
           </div>
-
         {/* Content */}
         {view === 'sectors-cards' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <PerformanceCard phase={sectorData.phases.recovery} phaseKey="recovery" />
-            <PerformanceCard phase={sectorData.phases.expansion} phaseKey="expansion" />
-            <PerformanceCard phase={sectorData.phases.slowdown} phaseKey="slowdown" />
-            <PerformanceCard phase={sectorData.phases.recession} phaseKey="recession" />
+            <PerformanceCard phase={sectorData.phases.goldilocks} phaseKey="goldilocks" />
+            <PerformanceCard phase={sectorData.phases.reflation} phaseKey="reflation" />
+            <PerformanceCard phase={sectorData.phases.inflation} phaseKey="inflation" />
+            <PerformanceCard phase={sectorData.phases.deflation} phaseKey="deflation" />
           </div>
         )}
-        
-        {view === 'sectors-table' && <ComparisonTable />}
-        
-        {view === 'assets' && <AssetClassTable />}
-        
-        {view === 'bonds-forex' && <BondsForexTable />}
-        
-        {view === 'commodities' && <CommoditiesTable />}
-        
-        {view === 'factors' && <FactorsTable />}
 
+        {view === 'sectors-table' && <ComparisonTable />}
+
+        {view === 'assets' && <AssetClassTable />}
+
+        {view === 'bonds-forex' && <BondsForexTable />}
+
+        {view === 'commodities' && <CommoditiesTable />}
+
+        {view === 'factors' && <FactorsTable />}
         {/* Footer */}
         <div className="mt-12 text-center text-gray-600 text-sm space-y-2">
           <p className="font-semibold">
@@ -1193,6 +1164,4 @@ function App() {
     </PasswordProtection>
   )
 }
-
 export default App
-
