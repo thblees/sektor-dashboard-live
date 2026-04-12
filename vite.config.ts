@@ -7,6 +7,7 @@ const plugins = [react(), tailwindcss()];
 
 export default defineConfig({
   plugins,
+  base: "/sektor-dashboard-live/",
   resolve: {
     alias: {
       "@": path.resolve(import.meta.dirname, "client", "src"),
