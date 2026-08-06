@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: npx vite build
         env:
-          VITE_MARKET_PHASE: inflation
+          VITE_MARKET_PHASE: reflation
 
       - name: Copy 404.html for SPA routing
         run: cp dist/public/index.html dist/public/404.html
